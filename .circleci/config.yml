@@ -1,8 +1,11 @@
-## This will build and publish docker container to docker hub.
+## This will build and publish docker container to Docker Hub.
+#
+# WARNING: Hardcoding credentials in this file is insecure and not recommended.
+# Use environment variables for sensitive information in real setups.
 #
 # TO DO:
-# 1. Set the environment variables DOCKERHUB_USERNAME & DOCKERHUB_PASS
-# 2. Change docker hub repo to yours, i.e,. replace shresthaajay/node-hello-world with your repo.
+# 1. Verify username and password have been correctly replaced.
+# 2. Change docker hub repo to yours, i.e., replace shresthaajay/node-hello-world-2024 with anush30/node-hello-world-2024.
 #
 ## Reference: https://circleci.com/blog/using-circleci-workflows-to-replicate-docker-hub-automated-builds/
 
@@ -10,7 +13,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: shresthaajay/node-hello-world-2024
+      IMAGE_NAME: anush30/node-hello-world-2024
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
@@ -42,7 +45,7 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo "Anush@300" | docker login -u "anush30" --password-stdin
             IMAGE_TAG="0.0.${CIRCLE_BUILD_NUM}"
             docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
             docker push $IMAGE_NAME:latest
